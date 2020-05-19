@@ -24,10 +24,6 @@ def scrape_nasa_news(browser):
     time.sleep(2)
     html = browser.html
     soup = bs4(html, 'lxml')
-    # filepath = os.path.join("html", "nasa_news.html")
-    # with open(filepath, 'wb') as file:
-    #     file.write(soup.prettify('utf-8'))
-    # browser.quit()
     news_title = soup.find_all('div', class_="content_title")[1].text
     news_p = soup.find('div', class_='article_teaser_body').text
     return (news_title, news_p)
@@ -39,10 +35,6 @@ def scrape_featured_image_url(browser):
     time.sleep(2)
     html = browser.html
     soup = bs4(html, 'lxml')
-    # filepath = os.path.join("html", "jpl_mars.html")
-    # with open(filepath, 'wb') as file:
-    #     file.write(soup.prettify('utf-8'))
-    # browser.quit()
 
     feaured_image = soup.find('img', class_='fancybox-image').get('src')
     feaured_image_url = 'https://www.jpl.nasa.gov' + feaured_image
@@ -56,9 +48,7 @@ def scrape_twitter_weather(browser):
     html = browser.html
     soup = bs4(html, 'lxml')
     filepath = os.path.join("html", "twitter_mars.html")
-    # with open(filepath, 'wb') as file:
-    #     file.write(soup.prettify('utf-8'))
-    # browser.quit()
+
     weathers = soup.find_all(
         'div',
         class_=
@@ -68,6 +58,7 @@ def scrape_twitter_weather(browser):
         'span',
         class_='css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0'
     ).text
+
     return current_weather
 
 
@@ -87,10 +78,6 @@ def scrape_mars_hemispheres(browser):
     html = browser.html
     soup = bs4(html, 'lxml')
     filepath = os.path.join("html", "mars_hemi.html")
-
-    # with open(filepath, 'wb') as file:
-    #     file.write(soup.prettify('utf-8'))
-
     links = browser.find_by_css('.description .itemLink')
 
     for link in links:
@@ -127,4 +114,3 @@ def scrape_all():
     browser.quit()
     print(mars_data)
     return mars_data
-
